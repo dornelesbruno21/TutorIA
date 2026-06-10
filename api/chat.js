@@ -6,19 +6,16 @@ export default async function handler(req, res) {
   try {
     const body = req.body;
     const message = body.message || body.query || '';
-    const conversation_id = body.conversation_id || '';
 
-    const response = await fetch('https://api.dify.ai/v1/chat-messages', {
+    const response = await fetch('https://api.dify.ai/v1/workflows/run', {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${process.env.DIFY_API_KEY}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        inputs: {},
-        query: message,
+        inputs: { query: message },
         response_mode: 'blocking',
-        conversation_id: conversation_id,
         user: 'user',
       }),
     });
