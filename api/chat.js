@@ -6,22 +6,29 @@ export default async function handler(req, res) {
   try {
     const body = req.body;
     const message = body.message || body.query || '';
+    const conversation_id = body.conversation_id || '';
 
-    const response = await fetch('https://api.dify.ai/v1/workflows/run', {
+    const response = await fetch('https://api.dify.ai/v1/chat-messages', {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${process.env.DIFY_API_KEY}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        inputs: { query: message },
+        inputs: {},
+        query: message,
         response_mode: 'blocking',
+        conversation_id: conversation_id,
         user: 'user',
       }),
     });
 
     const data = await response.json();
-    res.status(200).json(data);
+    
+    // Extrai a resposta correta do formato do Chatflow
+    const answer = data.answer || data.outputs?.text || data.outputs?.answer || 'Sem resposta.';
+    
+    res.status(200).json({ answer, conversation_id: data.conversation_id });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
