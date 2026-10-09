@@ -54,12 +54,16 @@ Abra **index.html** no navegador para conferir o layout. Isso não executa o end
 3. Importe o repositório na Vercel e configure **DIFY_API_KEY** nas variáveis de ambiente do projeto.
 4. Publique novamente após configurar a variável e teste uma pergunta.
 
-    git clone https://github.com/dornelesbruno21/TutorIA.git
-    cd TutorIA
+```bash
+git clone https://github.com/dornelesbruno21/TutorIA.git
+cd TutorIA
+```
 
 Para executar localmente com as funções serverless, utilize a CLI da Vercel:
 
-    npx vercel dev
+```bash
+npx vercel dev
+```
 
 Configure DIFY_API_KEY também no ambiente local. Nunca coloque a chave no HTML, em commits ou capturas de tela. Os provedores de IA e hospedagem podem ter limites de uso e custos.
 
